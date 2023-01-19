@@ -29,7 +29,7 @@ function Container1(){
             h="100vh"
             w="100%"
          >
-            <Flex spacing="15px" pt="45vh" pl="2vw">
+            <Flex spacing="15px" pos="relative" top="45vh" pl="2vw">
                 <SimpleGrid columns="3" gap="4">
                     <Box sx={outerBoxStyles}  >
                         <Heading as="h5" fontSize="18px"  >Most searched smartphone series on Amazon</Heading>
