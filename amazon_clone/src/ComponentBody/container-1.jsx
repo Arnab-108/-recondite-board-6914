@@ -1,5 +1,6 @@
 import image1 from "./image1.jpg"
 import { Box, Stack , SimpleGrid , Grid , Heading , GridItem , Image , Flex , Text , Link , Button , Center} from "@chakra-ui/react"
+import {Link as RouterLink} from "react-router-dom"
 function Container1(){
     const outerBoxStyles = {
         // boxSize: '380px',
@@ -134,7 +135,9 @@ function Container1(){
                     >
                      <Heading as="h5" fontSize="18px"  >Sign in for your best experience</Heading>   
                     <Center mt="2vh">
-                        <Button colorScheme="yellow" width="18vw" height="5vh" >Signin securely</Button>
+                        <RouterLink to="/signin" >
+                            <Button colorScheme="yellow" width="18vw" height="5vh" >Signin securely</Button>
+                        </RouterLink>
                     </Center>
                     </Box>
                     <Image src="https://m.media-amazon.com/images/G/31/img19/AMS/Houseads/Laptops-Sept2019._CB436595915_.jpg" height="280px" width="22vw" pl="2vw" pt="2vh" />

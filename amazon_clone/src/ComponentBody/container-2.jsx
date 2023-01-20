@@ -24,7 +24,7 @@ function Container2(){
             // h="100vh"
             w="100%"
          >
-            <Flex spacing="15px" pt="10vh" pl="2vw">
+            <Flex spacing="15px" pt="15vh" pl="2vw">
                 <SimpleGrid columns="4" gap="4">
                     <Box sx={outerBoxStyles}  >
                         <Heading as="h5" fontSize="18px">Starting ₹49 | Books, toys & more</Heading>

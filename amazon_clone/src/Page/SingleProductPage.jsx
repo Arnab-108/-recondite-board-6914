@@ -21,6 +21,21 @@ import {
     List,
     ListItem,
   } from '@chakra-ui/react';
+  
+  const cartData = (data={})=>{
+    return axios({
+              method: "POST",
+              url:`http://localhost:8080/Cart`,
+              data : {
+                  image: data.image,
+                  category: data.category,
+                  title: data.title,
+                  rating: data.rating,
+                  price: data.price,
+                  description : data.description
+              }
+          })
+  }
 //   import { FaInstagram, FaTwitter, FaYoutube } from 'react-icons/fa';
 //   import { MdLocalShipping } from 'react-icons/md';
 function SingleProductPage(){
@@ -49,6 +64,10 @@ function SingleProductPage(){
     }
     if(err){
         return <h1>Something Went Wrong</h1>
+    }
+    const handelClick=()=>{
+      cartData(data)
+      alert("Added Successfully")
     }
     const {image , category , title , rating , price , description} = data
     console.log(data)
@@ -98,7 +117,7 @@ function SingleProductPage(){
                     color='gray.500'
                     fontSize={'2xl'}
                     fontWeight={'300'}>
-                    {category}
+                    Category:{category}
                   </Text>
                   <Text fontSize={'lg'}>
                     {description}
@@ -142,7 +161,9 @@ function SingleProductPage(){
                 _hover={{
                   transform: 'translateY(2px)',
                   boxShadow: 'lg',
-                }}>
+                }}
+                onClick={()=>handelClick()}
+                >
                 Add to cart
               </Button>
     
