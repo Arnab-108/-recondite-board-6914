@@ -12,6 +12,7 @@ import {
     Avatar,
   } from '@chakra-ui/react';
   import MyBasket from "./MyBasket.png"
+  import {Link as RouterLink} from "react-router-dom"
   import { ReactNode } from 'react';
   
 //   const Logo = (props: any) => {
@@ -51,8 +52,8 @@ import {
         <Container as={Stack} maxW={'6xl'} py={10}>
           <SimpleGrid columns={{ base: 1, sm: 2, md: 4 }} spacing={8}>
             <Stack color="cyan.100" align={'flex-start'}>
-              <Heading as="h3" fontSize="16px" color="white" >Product</Heading>
-              <Link color="white" href={'#'}>Overview</Link>
+              <Heading as="h3" fontSize="16px"  >Product</Heading>
+              <Link href={'#'}>Overview</Link>
               <Stack color="cyan.100" direction={'row'} align={'center'} spacing={2}>
                 <Link  href={'#'}>Features</Link>
                 <Tag
@@ -111,15 +112,17 @@ import {
               ml: 8,
             }}>
             {/* <Logo /> */}
-            <Avatar 
-                height="7vh"
-                width="11vw"
-                src={MyBasket}
-                alt='Dan Abramov'
-            />
+            <Link href="#" >
+                <Avatar 
+                    height="7vh"
+                    width="11vw"
+                    src={MyBasket}
+                    alt='Dan Abramov'
+                />
+            </Link>
           </Flex>
           <Text pt={6} fontSize={'sm'} textAlign={'center'}>
-            © 2022 Chakra Templates. All rights reserved
+          © 1996-2023, MyBasket.com, Inc. or its affiliates
           </Text>
         </Box>
       </Box>
