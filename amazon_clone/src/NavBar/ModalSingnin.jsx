@@ -18,12 +18,16 @@ import {
 import { ChevronDownIcon } from '@chakra-ui/icons'
 import { useDisclosure } from '@chakra-ui/react'
 import {Link as RouterLink} from "react-router-dom"
+import { authProvider } from '../Authentication/auth'
+import { useContext } from "react";
   function ModalSignin() {
+    const data = JSON.parse(localStorage.getItem("formstate"))
     const { isOpen, onOpen, onClose } = useDisclosure()
+    const {isAuth} = useContext(authProvider)
     return (
       <>
         <Button onClick={onOpen} colorScheme="blackAlpha">
-            <Text fontSize="12px"  fontWeight="semibold" color="gray.300" pos="relative" left="5px" bottom="5px" >Hello,sign in</Text>
+            <Text fontSize="12px"  fontWeight="semibold" color="gray.300" pos="relative" left="5px" bottom="5px" >Hello,{isAuth===true ? data.first_name : "Sign in"}</Text>
             <Text fontSize="14px" color="white" fontWeight="semibold" style={{fontFamily:"Montserrat , sans-serif;"}} pos="relative" top="8px" right="4vw"  >  Account & Lists <ChevronDownIcon color="white" /> </Text>
         </Button>
   

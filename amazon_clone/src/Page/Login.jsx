@@ -1,5 +1,5 @@
-
-
+import { authProvider } from "../Authentication/auth";
+import { useContext, useState } from "react";
 import {
     Flex,
     Box,
@@ -12,16 +12,47 @@ import {
     Button,
     Heading,
     Text,
-    useColorModeValue,
+
   } from '@chakra-ui/react';
-  
+  import { Navigate } from "react-router-dom";
   export default function Login() {
+    
+    const {Login , isAuth} = useContext(authProvider)
+    const [email , setEmail] = useState("")
+    const [password , setPassword] = useState("")
+    
+
+    const handelSubmit=()=>{
+      const userDetails = {
+        email,
+        password,
+      }
+      fetch("http://localhost:8080/Database",{
+            method:"POST",
+            body: JSON.stringify(userDetails),
+            headers:{
+                "Content-Type" : "application/json",
+            },
+        })
+        .then((res)=>res.json())
+        .then(() => {
+            alert("Login Successfull")
+            Login()
+        })
+        .catch(()=>{
+            console.log("error")
+            alert("Something went wrong")
+        })
+    }
+    if(isAuth){
+      return <Navigate to="/" />
+    }
     return (
       <Flex
         minH={'100vh'}
         align={'center'}
         justify={'center'}
-        bg={useColorModeValue('gray.50', 'gray.800')}>
+        bg='gray.50'>
         <Stack spacing={8} mx={'auto'} maxW={'lg'} py={12} px={6}>
           <Stack align={'center'}>
             <Heading fontSize={'4xl'}>My Basket Welcomes You!</Heading>
@@ -31,17 +62,17 @@ import {
           </Stack>
           <Box
             rounded={'lg'}
-            bg={useColorModeValue('white', 'gray.700')}
+            bg= 'white'
             boxShadow={'lg'}
             p={8}>
             <Stack spacing={4}>
               <FormControl id="email">
                 <FormLabel>Email address</FormLabel>
-                <Input type="email" />
+                <Input type="email" onChange={(e)=>setEmail(e.target.value)} />
               </FormControl>
               <FormControl id="password">
                 <FormLabel>Password</FormLabel>
-                <Input type="password" />
+                <Input type="password" onChange={(e)=>setPassword(e.target.value)} />
               </FormControl>
               <Stack spacing={10}>
                 <Stack
@@ -56,7 +87,9 @@ import {
                   color={'white'}
                   _hover={{
                     bg: 'blue.500',
-                  }}>
+                  }}
+                  onClick={handelSubmit}
+                  >
                   Login
                 </Button>
               </Stack>

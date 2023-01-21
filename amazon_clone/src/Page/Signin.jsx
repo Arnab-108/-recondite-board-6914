@@ -1,5 +1,5 @@
 
-
+import axios from "axios"
 import {
     Flex,
     Box,
@@ -19,9 +19,45 @@ import {
   import { useState } from 'react';
   import { ViewIcon, ViewOffIcon } from '@chakra-ui/icons';
   import {Link as RouterLink} from "react-router-dom"
+
+  const getData = (data = {})=>{
+        return axios({
+            method: "POST",
+            url:` http://localhost:8080/Database`,
+            data : {
+                first_name: data.first_name,
+                last_name: data.last_name,
+                email: data.email,
+                password: data.password,
+            }
+        })
+    }
+
   export default function Signin() {
-    const [showPassword, setShowPassword] = useState(false);
-  
+    const [showPassword , setShowPassword] = useState(false)
+    const [formState , setFormState] = useState({
+      first_name : "",
+      last_name : "",
+      email : "",
+      password : ""
+  })
+
+    const handelChange = (e)=>{
+      const {name , value} = e.target
+      
+      setFormState({
+        ...formState,
+        [name] : value
+    })
+    }
+
+    const handelSubmit = (e)=>{
+      e.preventDefault()
+      localStorage.setItem("formstate",JSON.stringify(formState))
+      getData(formState)
+      alert("Signin Successfull")
+    }
+    const {first_name , last_name , email , password} = formState
     return (
       <Flex
         minH={'100vh'}
@@ -47,36 +83,39 @@ import {
                 <Box>
                   <FormControl id="firstName" isRequired>
                     <FormLabel>First Name</FormLabel>
-                    <Input type="text" />
+                    <Input type="text" onChange={handelChange} value={first_name} name="first_name" />
                   </FormControl>
                 </Box>
                 <Box>
                   <FormControl id="lastName">
                     <FormLabel>Last Name</FormLabel>
-                    <Input type="text" />
+                    <Input type="text" onChange={handelChange} value={last_name} name="last_name" />
                   </FormControl>
                 </Box>
               </HStack>
               <FormControl id="email" isRequired>
                 <FormLabel>Email address</FormLabel>
-                <Input type="email" />
+                <Input type="email" onChange={handelChange} value={email} name="email" />
               </FormControl>
               <FormControl id="password" isRequired>
                 <FormLabel>Password</FormLabel>
                 <InputGroup>
-                  <Input type={showPassword ? 'text' : 'password'} />
+                  <Input onChange={handelChange} value={password} name="password" type={showPassword ? 'text' : 'password'} />
                   <InputRightElement h={'full'}>
-                    <Button
-                      variant={'ghost'}
-                      onClick={() =>
-                        setShowPassword((showPassword) => !showPassword)
-                      }>
-                      {showPassword ? <ViewIcon /> : <ViewOffIcon />}
-                    </Button>
+                   
+                      <Button
+                        variant={'ghost'}
+                        onClick={() =>
+                          setShowPassword((showPassword) => !showPassword)
+                        }>
+                        {showPassword ? <ViewIcon /> : <ViewOffIcon />}
+                      </Button>
+                    
                   </InputRightElement>
                 </InputGroup>
               </FormControl>
               <Stack spacing={10} pt={2}>
+              <RouterLink to="/login">
                 <Button
                   loadingText="Submitting"
                   size="lg"
@@ -85,10 +124,11 @@ import {
                   _hover={{
                     bg: 'blue.500',
                   }}
-                //   onClick={()=>handelSubmit()}
+                  onClick={handelSubmit}
                   >
                   Sign up
                 </Button>
+              </RouterLink>
               </Stack>
               <Stack pt={6}>
                   <RouterLink to="/login" >
