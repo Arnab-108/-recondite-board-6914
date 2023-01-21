@@ -1,15 +1,15 @@
 import { Card, CardBody, CardFooter , Image , Stack , Button , Heading , Text , ButtonGroup } from '@chakra-ui/react'
 import axios from 'axios'
 import Model from './modelCart'
- const DeleteData=(id)=>{
+const DeleteData=(id)=>{
     return axios({
         method:"delete",
         url:`http://localhost:8080/Cart/${id}`
     })
     
 }
-function CartCard({id , title , price , category , image , rating , description }){
-    const handelDelete=(id)=>{
+function CartCard({id , title , price , category , image , rating , description , handelDelete }){
+    const DeleteItem =()=>{
        DeleteData(id)
     }
     return (
@@ -59,7 +59,7 @@ function CartCard({id , title , price , category , image , rating , description 
                             category={category}
                         />
                     </Button>
-                    <Button width="16vw" height="5vh" variant='solid' colorScheme='yellow' onClick={()=>handelDelete(id)} >
+                    <Button width="16vw" height="5vh" variant='solid' colorScheme='yellow' onClick={DeleteItem} >
                         Delete
                     </Button>
 
